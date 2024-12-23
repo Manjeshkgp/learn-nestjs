@@ -29,9 +29,10 @@ export class CoffeesController {
   // }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     // it directly gets the id
-    return this.coffeesService.findOne(id);
+    console.log(typeof id)
+    return this.coffeesService.findOne('' + id);
   }
 
   // @Get("/flavours/:flavourId/:coffeeId")
@@ -42,6 +43,7 @@ export class CoffeesController {
   @Post()
   postBody(@Body() body: CreateCoffeeDto) {
     // similar to @Params we can get only single key of the body object if required
+    console.log(body instanceof CreateCoffeeDto)
     return this.coffeesService.create(body);
   }
 
