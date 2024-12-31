@@ -1,4 +1,10 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Flavour } from './flavour.entity/flavour.entity';
 
 @Entity() // sql table 'coffee'
@@ -10,10 +16,14 @@ export class Coffee {
   @Column()
   brand: string;
 
-//   @Column('json', { nullable: true }) // stores flavours array in json format and no data is also possible
-//   flavours: string[];
+  //   @Column('json', { nullable: true }) // stores flavours array in json format and no data is also possible
+  //   flavours: string[];
 
-    @JoinTable()
-    @ManyToMany(()=>Flavour,(flavour)=>flavour.coffees)
-    flavours: string[];
+  @JoinTable()
+  @ManyToMany(
+    () => Flavour, 
+    (flavour) => flavour.coffees,
+    { cascade: true }, // automatically inserts new flavour in db
+  )
+  flavours: Flavour[];
 }
